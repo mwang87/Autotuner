@@ -1,7 +1,7 @@
 Package: Autotuner
 Type: Package
 Title: Automated parameter selection for untargeted metabolomics data processing 
-Version: 0.99.9
+Version: 1.1.1
 Author: Craig McLean 
 Maintainer: Craig McLean <craigmclean23@gmail.com>
 Description: This package is designed to help faciliate data processing in
@@ -9,21 +9,19 @@ Description: This package is designed to help faciliate data processing in
     best set of parameters to process the raw data. 
 License: MIT + file LICENSE
 Encoding: UTF-8
-Depends: R (>= 3.6)
+Depends:
+  R (>= 3.6),
+  methods,
+  Biobase,
+  MSnbase (>= 2.9.3)
 LazyData: false 
-RoxygenNote: 6.1.1
+RoxygenNote: 7.0.2
 biocViews: MassSpectrometry, Metabolomics
 Imports: 
-    MSnbase,
-    devtools,
     RColorBrewer,
-    dplyr,
-    rlang,
-    plyr,
     mzR,
     assertthat,
     scales,
-    methods,
     entropy,
     cluster,
     grDevices,
@@ -33,6 +31,7 @@ Imports:
 Suggests: 
     testthat (>= 2.1.0),
     covr,
+    devtools,
     knitr,
     rmarkdown,
     mtbls2

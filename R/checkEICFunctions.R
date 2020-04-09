@@ -7,7 +7,6 @@
 #' @param first Numeric of length 1 respresenting the first mass entered
 #' @param second Numeric of length 1 representing second mass entered
 #'
-#' @importFrom dplyr "%>%"
 #' @importFrom grDevices "boxplot.stats"
 #' @importFrom graphics "abline" "legend" "lines" "par" "plot"
 #' @importFrom stats "acf" "cor" "dist" "filter" "kmeans" "lm" "median"
@@ -290,9 +289,9 @@ filterPpmError <- function(approvedPeaks, useGap, varExpThresh,
                             filename) {
 
     ppmObs <- approvedPeaks$meanPPM
-    ppmObs <- strsplit(split = ";", x = as.character(ppmObs)) %>%
-        lapply(function(x) {as.numeric(x)}) %>%
-        unlist()
+    ppmObs <- strsplit(split = ";", x = as.character(ppmObs))
+    ppmObs <- lapply(ppmObs, as.numeric)
+    ppmObs <- unlist(ppmObs)
 
     ## 2019-06-19
     ## corner case when all error measurements are identical.
@@ -385,7 +384,9 @@ filterPpmError <- function(approvedPeaks, useGap, varExpThresh,
     }
 
     ## cluster which contains smallest ppm values
-    clusterSize <- table(kmeansPPM$cluster) %>% sort(decreasing = TRUE)
+    clusterSize <- table(kmeansPPM$cluster)
+    clusterSize <- sort(clusterSize, decreasing = TRUE)
+
     maxCluster <- names(clusterSize)[1]
     minCluster <- which(kmeansPPM$cluster == maxCluster)
     rm(clusterSize)
@@ -420,10 +421,12 @@ filterPpmError <- function(approvedPeaks, useGap, varExpThresh,
     if(returnPpmPlots) {
 
 
-        title <- paste(filename, 'ppm distribution:',
+        title <- paste(filename,
+                       'ppm Distribution of Bounded Peak\n Range (s):',
                         signif(observedPeak$start, digits = 4),
                         "-",
                         signif(observedPeak$end, digits = 4))
+        title <- trimws(title)
 
         output <- file.path(plotDir,paste0(gsub(" ", "_", title), ".pdf"))
         output <- sub(":", "", output)
@@ -434,19 +437,20 @@ filterPpmError <- function(approvedPeaks, useGap, varExpThresh,
 
         ## adding heuristic here to make ploting easier to see
         if(length(ppmObs) < 300) {
-            bw <- .1
+            bw <- 0.05
         } else {
-            bw <- .5
+            bw <- .1
         }
 
         plot(stats::density(ppmObs,bw = bw),
             main = title,
-            cex.main = 1.2, cex.lab = 1.3, cex.axis = 1.2) #+
+            cex.main = 1.2, cex.lab = 1.3, cex.axis = 1.2,
+            xlab = "ppm Values") #+
         abline(v = maxX, lty = 2, col = "red") +
         abline(v = ppmEst, lty = 3, col = "blue")
         legend("topright",
-                legend = c(paste("score > 1:", signif(maxX,digits = 3)),
-                    paste("ppm estimate:", signif(ppmEst,digits = 3))),
+                legend = c(paste("Maximum Outlier Score > 1:", signif(maxX,digits = 3)),
+                    paste("ppm Estimate:", signif(ppmEst,digits = 3))),
                 col = c("red","blue"),
                 lty = c(2,3),cex = 1.1)
         grDevices::dev.off()

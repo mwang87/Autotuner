@@ -20,6 +20,8 @@
 #' @param header A data.fame containing metadata on the sample like
 #' spectra type (MS1 vs MS2), retention time, and scan count.
 #'
+#' @import Biobase methods
+#'
 #' @return This function returns the last index the feature is detected.
 checkBounds <- function(mass,
                         upper = TRUE,
@@ -52,7 +54,7 @@ checkBounds <- function(mass,
     }
 
     if(runawayPeak) {
-        return(NA)
+        return("Runaway Peak")
     }
 
     # initializing storage objects --------------------------------------------
@@ -76,7 +78,8 @@ checkBounds <- function(mass,
     if(is.na(nextIndex)) {
         ## hack for netCDF files
         nextIndex <- suppressWarnings(as.numeric(
-            sub("scan=", "",header$spectrumId[adjIndex])))
+            sub("(.* )?scan=|(.* )?scanId=",
+                "",header$spectrumId[adjIndex])))
     }
 
     peakMatrix <- data.frame(mzDb[[adjIndex]])
