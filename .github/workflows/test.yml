@@ -21,9 +21,9 @@ jobs:
       - name: Install Dependencies
         run: |
           Rscript -e 'options(Ncpus = 16);install.packages("DT", repos="http://cran.us.r-project.org")'
+          sudo apt-get install -y libssl-dev
       - name: Run Things
         run: |
-          conda activate r-environment
           which Rscript
           Rscript -e 'print("hello")'
 
