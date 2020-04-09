@@ -1,9 +1,12 @@
 #!/usr/bin/env nextflow
 
-params.data_folder = './data'
-input_data_folder_ch = Channel.fromPath(params.data_folder)
+params.data_folder = './data/alan'
+params.metadata_file = './data/alan/metadata.csv'
 
-params.metadata_file = './data/metadata.csv'
+//params.data_folder = './data/daniel'
+//params.metadata_file = './data/daniel/metadata.csv'
+
+input_data_folder_ch = Channel.fromPath(params.data_folder)
 input_metadata_ch = Channel.fromPath(params.metadata_file)
 
 params.outdir = "$baseDir/output_nf"
