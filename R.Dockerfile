@@ -1,4 +1,4 @@
-FROM r-base:3.6.3
+FROM r-base:3.6.1
 MAINTAINER Mingxun Wang "mwang87@gmail.com"
 
 #Random System Utilities
@@ -18,10 +18,8 @@ RUN Rscript -e 'options(Ncpus = 16);install.packages("ggplot2", repos="http://cr
 RUN Rscript -e 'options(Ncpus = 16);install.packages("pcaMethods", repos="http://cran.us.r-project.org")'
 
 RUN apt-get install -y r-cran-ncdf4
-#UN Rscript -e 'options(Ncpus = 16);library(devtools);install_github("crmclean/autotuner")'
-#RUN Rscript -e 'install.packages("mtbls2", repos="http://cran.us.r-project.org")'
-#BiocManager::install("mtbls2")
-
+RUN Rscript -e 'options(Ncpus = 16);library(devtools);install_github("crmclean/autotuner")'
+RUN Rscript -e 'options(Ncpus = 16);library(BiocManager);BiocManager::install("mtbls2")'
 
 COPY . /app
 WORKDIR /app
