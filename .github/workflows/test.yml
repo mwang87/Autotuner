@@ -10,12 +10,21 @@ on:
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   build:
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-latest
     name: R '3.6.1' sample
     steps:
       - uses: actions/checkout@master
-      - name: Setup R
-        uses: actions/setup-R@v1
+      - name: setup R
+        uses: r-lib/actions/setup-r@v1
         with:
-          r-version: '3.6.1'
-      - run: Rscript -e 'print("hello")'
+          r-version: '3.6.1' # The R version to download (if necessary) and use.
+      - name: Install Dependencies
+        run: |
+          Rscript -e 'options(Ncpus = 16);install.packages("DT", repos="http://cran.us.r-project.org")'
+      - name: Run Things
+        run: |
+          conda activate r-environment
+          which Rscript
+          Rscript -e 'print("hello")'
+
+ 
