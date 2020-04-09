@@ -53,4 +53,7 @@ eicParamEsts <- EICparams(Autotuner = Autotuner,
                           returnPpmPlots = FALSE,
                           useGap = TRUE)
 
-returnParams(eicParamEsts, Autotuner)
+params = returnParams(eicParamEsts, Autotuner)
+
+print("OUTPUT PARAMETERS")
+print(params)
