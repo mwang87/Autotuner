@@ -45,5 +45,4 @@ eicParamEsts <- EICparams(Autotuner = Autotuner,
 
 params = returnParams(eicParamEsts, Autotuner)
 
-
-print(eicParamEsts)
+write.csv(params[1],args[3], row.names=FALSE, sep="\t")
