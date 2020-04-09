@@ -16,7 +16,7 @@ RUN Rscript -e 'options(Ncpus = 16);install.packages("devtools", repos="http://c
 RUN apt-get install -y netcdf-bin
 RUN apt-get install -y r-cran-ncdf4
 RUN Rscript -e 'options(Ncpus = 16);library(devtools);install_github("crmclean/autotuner")'
-
+RUN Rscript -e 'install.packages("mtbls2", repos="http://cran.us.r-project.org")'
 
 COPY . /app
 WORKDIR /app
