@@ -15,10 +15,12 @@ build-r:
 bash-r:
 	docker run -it autotuner-r /bin/bash
 
-
 testing-r:
 	docker build -t autotuner-r -f R.Dockerfile . 
 	docker run -it autotuner-r /app/testing/run_testing.sh
+
+build-r-worker:
+	docker build -t autotuner-r-worker -f R.Dockerfile . 
 
 build-r-studio:
 	docker build -t autotuner-r-studio -f R-studio.Dockerfile . 
