@@ -18,6 +18,7 @@ RUN Rscript -e 'options(Ncpus = 16);install.packages("ggplot2", repos="http://cr
 RUN Rscript -e 'options(Ncpus = 16);install.packages("pcaMethods", repos="http://cran.us.r-project.org")'
 
 RUN apt-get install -y r-cran-ncdf4
+RUN Rscript -e 'options(Ncpus = 16);install.packages("devtools", repos="http://cran.us.r-project.org")'
 RUN Rscript -e 'options(Ncpus = 16);library(devtools);install_github("crmclean/autotuner")'
 RUN Rscript -e 'options(Ncpus = 16);library(BiocManager);BiocManager::install("mtbls2")'
 

@@ -25,3 +25,7 @@ build-r-studio:
 
 run-r-studio:
 	docker run --rm -p 8787:8787 -e PASSWORD=ming autotuner-r-studio
+
+run-r-studio-test:
+	docker run --rm -p 8787:8787 -e USER=ming -e PASSWORD=yourpasswordhere rocker/rstudio
+
