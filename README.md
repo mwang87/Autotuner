@@ -35,3 +35,9 @@ install_github("crmclean/autotuner")
 ## Using AutoTuner
 
 For a guide on how to use AutoTuner to find optimized data processing parameters, see vignettes/Autotuner.rmd
+
+## Testing
+
+Testing is using github actions, can be run locally with:
+
+```make test-push```
