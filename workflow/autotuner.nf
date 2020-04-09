@@ -21,9 +21,10 @@ process process {
     file metadata from input_metadata_ch
 
     output:
-    file 'output_params.tsv'
+    file 'output_eic_params.tsv'
+    file 'output_group_params.tsv'
 
     """
-    run_autotuner.R $metadata $data_folder output_params.tsv
+    run_autotuner.R $metadata $data_folder output_eic_params.tsv output_group_params.tsv
     """
 }
